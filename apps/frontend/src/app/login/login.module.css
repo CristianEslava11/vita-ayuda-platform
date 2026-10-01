@@ -1,0 +1,387 @@
+/* ============================================
+   Vita Ayuda — Login Page (Rocas & Manantiales)
+   Premium split-screen with mineral palette.
+   ============================================ */
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.brandingPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  background: var(--slate-900);
+  color: var(--alabaster-100);
+  position: relative;
+  overflow: hidden;
+}
+
+.brandingPanel::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(42, 157, 117, 0.12) 0%, transparent 70%);
+  top: -200px;
+  right: -150px;
+}
+
+.brandingPanel::after {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(42, 157, 117, 0.08) 0%, transparent 70%);
+  bottom: -100px;
+  left: -80px;
+}
+
+.brandingContent {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 420px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.logoIcon {
+  width: 56px;
+  height: 56px;
+  background: var(--agave-600);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.brandingTitle {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.75rem;
+  line-height: 1.15;
+  color: var(--alabaster-100);
+}
+
+.brandingSubtitle {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  opacity: 0.65;
+  font-weight: 400;
+  margin-bottom: 3rem;
+  line-height: 1.6;
+  color: var(--alabaster-200);
+}
+
+.brandingFeatures {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  text-align: left;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: var(--alabaster-200);
+  font-weight: 400;
+}
+
+.featureIcon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(42, 157, 117, 0.15);
+  border: 1px solid rgba(42, 157, 117, 0.25);
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+  color: var(--agave-300);
+}
+
+.formPanel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  background: var(--alabaster-100);
+}
+
+.formWrapper {
+  width: 100%;
+  max-width: 400px;
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.formCard {
+  background: var(--surface);
+  border: 1px solid var(--slate-200);
+  padding: 2.5rem;
+}
+
+.formHeader {
+  margin-bottom: 2rem;
+}
+
+.formTitle {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.formSubtitle {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--slate-500);
+  font-weight: 400;
+}
+
+.fieldGroup {
+  margin-bottom: 1.25rem;
+}
+
+.label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--slate-700);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--slate-400);
+  pointer-events: none;
+  transition: color var(--transition-fast);
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  padding: 0.8rem 0.875rem 0.8rem 2.75rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--slate-900);
+  background: var(--surface);
+  border: 1px solid var(--slate-200);
+  transition: all var(--transition-fast);
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--slate-400);
+}
+
+.input:focus {
+  border-color: var(--agave-500);
+  box-shadow: 0 0 0 1px var(--agave-500);
+}
+
+.input:focus ~ .inputIcon {
+  color: var(--agave-600);
+}
+
+.inputError {
+  border-color: var(--coral-400);
+}
+
+.inputError:focus {
+  box-shadow: 0 0 0 1px var(--coral-400);
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--slate-400);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+  padding: 4px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+.passwordToggle:hover {
+  color: var(--slate-600);
+}
+
+.submitButton {
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--slate-900);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  letter-spacing: 0.01em;
+}
+
+.submitButton:hover {
+  background: var(--agave-700);
+}
+
+.submitButton:active {
+  transform: translateY(1px);
+}
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+.errorAlert {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background: var(--coral-50);
+  border: 1px solid var(--coral-200);
+  margin-bottom: 1.5rem;
+  animation: scaleIn 0.3s ease-out;
+}
+
+.errorIcon {
+  flex-shrink: 0;
+  color: var(--coral-400);
+  display: flex;
+  align-items: center;
+}
+
+.errorText {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--coral-500);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.75rem 0;
+  color: var(--slate-400);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--slate-200);
+}
+
+.formFooter {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--slate-400);
+}
+
+.formFooter a {
+  color: var(--slate-700);
+  font-weight: 600;
+  transition: color var(--transition-fast);
+  text-decoration: underline;
+}
+
+.formFooter a:hover {
+  color: var(--agave-600);
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .brandingPanel {
+    padding: 2rem 1.5rem;
+    min-height: auto;
+  }
+
+  .brandingFeatures {
+    display: none;
+  }
+
+  .formPanel {
+    padding: 2rem 1.5rem;
+  }
+
+  .formCard {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
