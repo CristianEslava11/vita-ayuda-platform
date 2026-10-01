@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String      @id @default(uuid())
+  email        String      @unique
+  passwordHash String      @map("password_hash")
+  activo       Boolean     @default(true)
+  patient      Patient?
+  userRoles    UserRole[]
+  vitalSigns   VitalSign[]  @relation("VitalSignRegistradoPor")
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Role {
+  id          String     @id @default(uuid())
+  nombre      String     @unique
+  descripcion String?
+  userRoles   UserRole[]
+
+  @@map("roles")
+}
+
+model UserRole {
+  userId String @map("user_id")
+  roleId String @map("role_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role   Role   @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roleId])
+  @@map("user_roles")
+}
+
+model Patient {
+  id              String      @id @default(uuid())
+  userId          String      @unique @map("user_id")
+  numeroDocumento String?     @unique @map("numero_documento")
+  nombres         String
+  apellidos       String
+  fechaNacimiento DateTime?   @db.Date @map("fecha_nacimiento")
+  telefono        String?
+  activo          Boolean     @default(true)
+  user            User        @relation(fields: [userId], references: [id])
+  vitalSigns      VitalSign[]
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
+
+  @@map("patients")
+}
+
+model VitalSignType {
+  id          String      @id @default(uuid())
+  nombre      String      @unique
+  unidadBase  String      @map("unidad_base")
+  descripcion String?
+  vitalSigns  VitalSign[]
+
+  @@map("vital_sign_types")
+}
+
+model VitalSign {
+  id              String        @id @default(uuid())
+  patientId       String        @map("patient_id")
+  vitalSignTypeId String        @map("vital_sign_type_id")
+  valor           Decimal       @db.Decimal(10, 2)
+  fechaRegistro   DateTime      @default(now()) @map("fecha_registro")
+  registradoPor   String        @map("registrado_por")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  patient         Patient       @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  vitalSignType   VitalSignType  @relation(fields: [vitalSignTypeId], references: [id])
+  registradoBy    User           @relation("VitalSignRegistradoPor", fields: [registradoPor], references: [id])
+
+  @@index([patientId, fechaRegistro])
+  @@map("vital_signs")
+}

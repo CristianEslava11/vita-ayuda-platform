@@ -1,0 +1,38 @@
+{
+  "name": "vita-ayuda-software2",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Plataforma de seguimiento de pacientes — Vita Ayuda",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build:packages": "npm run build --workspace=@vita-ayuda/shared && npm run build --workspace=@vita-ayuda/config && npm run build --workspace=@vita-ayuda/database",
+    "dev": "npm run setup:env && npm run build:packages && concurrently -k -n backend,frontend \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "npm run start:dev --workspace=apps/backend",
+    "dev:frontend": "npm run dev --workspace=apps/frontend",
+    "build": "npm run build:packages && npm run build --workspace=apps/backend && npm run build --workspace=apps/frontend",
+    "typecheck": "npm run db:generate && npm run typecheck --workspaces --if-present",
+    "db:validate": "npm run prisma:validate --workspace=apps/backend",
+    "db:generate": "npm run prisma:generate --workspace=apps/backend",
+    "db:deploy": "npm run prisma:deploy --workspace=apps/backend",
+    "db:studio": "npm run prisma:studio --workspace=apps/backend",
+    "setup:env": "node scripts/setup-env.cjs",
+    "db:seed": "npm run build:packages && node apps/backend/scripts/seed.cjs",
+    "test:integration": "node --test apps/backend/test/integration.cjs"
+  },
+  "overrides": {
+    "@prisma/config": {
+      "deepmerge-ts": "^8.0.2"
+    }
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "typescript": "^5.9.0",
+    "@types/node": "^22.0.0"
+  }
+}
