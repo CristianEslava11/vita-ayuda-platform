@@ -23,6 +23,7 @@
     "db:studio": "npm run prisma:studio --workspace=apps/backend",
     "setup:env": "node scripts/setup-env.cjs",
     "db:seed": "npm run build:packages && node apps/backend/scripts/seed.cjs",
+    "test:unit": "npm run build:packages && npm run build --workspace=apps/backend && node --test apps/backend/test/unit/vital-sign.use-cases.unit.cjs",
     "test:integration": "node --test apps/backend/test/integration.cjs"
   },
   "overrides": {
